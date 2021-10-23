@@ -16,3 +16,22 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+//Named Route
+Route::get('/contact', function () {
+    return "<h1> Contact Page </h1>";
+})
+    ->name("Contact");
+
+//Dynamic Route with Regex pattern in RouteServiceProvider
+Route::get('/post/{id}', function ($id) {
+    return "Your post ID is: " . $id;
+})
+    ->name("Dynamic Route");
+
+//Dynamic Route with optional Parameter and with Where Regex Condition
+Route::get('/recent-posts/{daysAgo?}', function ($daysAgo = 5) {
+    return "posts are from last {$daysAgo} days ago.";
+})
+    ->where(['daysAgo' => '[0-9]+'])
+    ->name("Dynamic Route with Optional Parameter");
