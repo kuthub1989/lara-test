@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BlogPosts;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -26,7 +27,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        return view('post.index', ['posts' => $this->posts]);
+        return view('post.index', ['posts' => BlogPosts::all()]);
     }
 
     /**
@@ -58,9 +59,9 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        abort_if(!isset($this->posts[$id]), 404);
+        // abort_if(!isset($this->posts[$id]), 404);
 
-        return view('post.show', ['post' => $this->posts[$id]]);
+        return view('post.show', ['post' => BlogPosts::findOrFail($id)]);
     }
 
     /**
