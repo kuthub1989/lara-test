@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\AboutController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,35 +30,40 @@ $posts = [
 ];
 
 
-// Route::get('/', function () {
-//     return view('home.index', []);
-// });
+/* Route::get('/', function () {
+    return view('home.index', []);
+}); */
 
 // //Named Route
-// Route::get('/contact', function () {
-//     return view('home.contact');
-// })
-//     ->name("Contact");
+/* Route::get('/contact', function () {
+    return view('home.contact');
+})
+    ->name("Contact"); */
 
 //Simplified View Route
-Route::view('/', 'home.index');
-Route::view('/contact', 'home.contact');
+/* Route::view('/', 'home.index');
+Route::view('/contact', 'home.contact'); */
 
+//Controller Route
+Route::get('/', [HomeController::class, 'index'])->name('home.index');
+Route::get('/contact', [HomeController::class, 'contact'])->name('home.contact');
+
+//Single Action Controller
+Route::get('/about', AboutController::class)->name('SingleAction');
 
 //Dynamic Route with Regex pattern in RouteServiceProvider
-Route::get('/post/{id}', function ($id) use ($posts) {
+/*Route::get('/post/{id}', function ($id) use ($posts) {
 
     abort_if(!isset($posts[$id]), 404);
 
     return view('post.show', ['post' => $posts[$id]]);
 })
-    ->name("SinglePost");
+    ->name("SinglePost");*/
 
 //PostList
-Route::get('/post', function () use ($posts) {
-    dd(request()->all());
+/*Route::get('/post', function () use ($posts) {
     return view('post.index', ['posts' => $posts]);
-});
+});*/
 
 //Dynamic Route with optional Parameter and with Where Regex Condition
 Route::get('/recent-posts/{daysAgo?}', function ($daysAgo = 5) {
@@ -63,6 +71,8 @@ Route::get('/recent-posts/{daysAgo?}', function ($daysAgo = 5) {
 })
     ->where(['daysAgo' => '[0-9]+'])
     ->name("Dynamic Route with Optional Parameter");
+
+Route::resource('post', PostController::class)->only('index', 'show');
 
 //Grouping Routes of Same Prefix URL
 Route::prefix('/test')->name('test.')->group(function () use ($posts) {
