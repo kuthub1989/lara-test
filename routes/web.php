@@ -72,7 +72,7 @@ Route::get('/recent-posts/{daysAgo?}', function ($daysAgo = 5) {
     ->where(['daysAgo' => '[0-9]+'])
     ->name("Dynamic Route with Optional Parameter");
 
-Route::resource('post', PostController::class)->only('index', 'show');
+Route::resource('post', PostController::class);
 
 //Grouping Routes of Same Prefix URL
 Route::prefix('/test')->name('test.')->group(function () use ($posts) {

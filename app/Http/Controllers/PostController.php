@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePost;
 use App\Models\BlogPosts;
 use Illuminate\Http\Request;
 
@@ -37,7 +38,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('post.create');
     }
 
     /**
@@ -46,9 +47,32 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StorePost $request)
     {
-        //
+        // dd($request);
+
+        $validated = $request->validated();
+
+        /* 
+        $post = new BlogPosts();
+
+        Method 1 to store data - value from request object
+        $post->title = $request->input('title');
+        $post->content = $request->input('content');
+
+        Method 2 to store data - value from validated inputs
+        $post->title = $request['title'];
+        $post->content = $request['content'];
+        
+        $post->save(); 
+        */
+
+        // Method 3 to store data - Fillable
+        $post = BlogPosts::create($validated);
+
+        $request->session()->flash('status', 'New post saved successfully.');
+
+        return redirect()->route('post.show',  $post->id);
     }
 
     /**

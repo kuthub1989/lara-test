@@ -4,11 +4,11 @@
 
 @section('content')
 
-    @if($post['is_new'])
+    {{--  @if($post['is_new'])
         <small>New Post</small> 
     @elseif(!$post['is_new'])
         <small>Old Post</small>
-    @endif
+    @endif  --}}
 
     <h1>{{ $post['title'] }}</h1>
     <p>{{ $post['content'] }}</p>
