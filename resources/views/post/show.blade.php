@@ -1,16 +1,19 @@
 @extends('layouts.app')
 
-@section('title', $post['title'])
+@section('title', $post->title)
 
 @section('content')
 
-    {{--  @if($post['is_new'])
-        <small>New Post</small> 
-    @elseif(!$post['is_new'])
-        <small>Old Post</small>
-    @endif  --}}
-
-    <h1>{{ $post['title'] }}</h1>
-    <p>{{ $post['content'] }}</p>
+    <h1>
+        {{ $post->title }}
+        @if (now()->diffInMinutes($post->created_at) < 60)
+            <span class="badge badge-pill badge-primary">New</span>
+        @endif
+    </h1>
+    <div class="alert alert-light" role="alert">
+     Added {{ $post->created_at->diffForHumans() }}
+    </div>
+    <p>{{ $post->content }}</p>
+    
 @endsection
 

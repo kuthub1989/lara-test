@@ -7,7 +7,7 @@
         @csrf
         @include('post.partials.form')
         <div>
-            <input type="submit" value="Save Post">
+            <input type="submit" value="Save Post" class="btn btn-primary">
         </div>
     </form>
 @endsection
