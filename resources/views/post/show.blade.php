@@ -12,5 +12,12 @@
 
     <h1>{{ $post['title'] }}</h1>
     <p>{{ $post['content'] }}</p>
+
+    @isset($post['comments'])
+        <div>Comments Available.</div> 
+    @else
+        <div>Not Available.</div> 
+    @endisset
+
 @endsection
 
