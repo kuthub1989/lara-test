@@ -40,5 +40,5 @@ Route::get('/recent-posts/{daysAgo?}', function ($daysAgo = 5) {
 Route::get('/post/{category?}/{id?}', function ($category = "mobiles", $id = 25) {
     return "Your post ID is: $id. And It's from $category category.";
 })
-    ->where(['daysAgo' => '[0-9]+'])
+    ->where(['id' => '[0-9]+', 'category' => '[a-zA-Z-]+'])
     ->name("Dynamic Route");
